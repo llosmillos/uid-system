@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>UID API</title>
+</head>
+
+<body>
+
+<script>
+
+async function checkUID(){
+
+const params = new URLSearchParams(window.location.search);
+const uid = params.get("uid");
+
+if(!uid){
+document.body.innerText="UID missing";
+return;
+}
+
+const res = await fetch("uids.json");
+const list = await res.json();
+
+if(list.includes(uid)){
+document.body.innerText="true";
+}
+else{
+document.body.innerText="false";
+}
+
+}
+
+checkUID();
+
+</script>
+
+</body>
+</html>
