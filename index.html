@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>UID API</title>
+<title>UID Check</title>
 </head>
 
 <body>
@@ -15,18 +15,25 @@ const params = new URLSearchParams(window.location.search);
 const uid = params.get("uid");
 
 if(!uid){
-document.body.innerText="UID missing";
+document.body.innerText="false";
 return;
 }
 
-const res = await fetch("uids.json");
+try{
+
+const res = await fetch("uids.json?nocache=" + Date.now());
 const list = await res.json();
 
 if(list.includes(uid)){
 document.body.innerText="true";
-}
-else{
+}else{
 document.body.innerText="false";
+}
+
+}catch(e){
+
+document.body.innerText="false";
+
 }
 
 }
